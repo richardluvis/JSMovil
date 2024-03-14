@@ -1,35 +1,36 @@
 $(document).ready(function(){
     
-    $("#submitCity").click(function(){
-        return getWeather();
+    $("#submitVideo").click(function(){
+        return getVideo();
     });
     
     
 });
 
-function getWeather(){
-    var city = $("#city").val();
+function getVideo(){
+    var video = $("#search").val();
     
     if(city != ''){
         
         $.ajax({
-           url: 'http://api.openweathermap.org/data/2.5/weather?q=' + city + "&units=metric" + "&APPID=c10bb3bd22f90d636baa008b1529ee25",
+            // https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=java_script&key=AIzaSyB8IbXTJnV3n2ye-6CjXsfCVWIqq8ex1Fw
+           url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=' + video + "&key=AIzaSyB8IbXTJnV3n2ye-6CjXsfCVWIqq8ex1Fw",
             type: "GET",
             dataType: "jsonp",
             success: function(data){
                 var widget = showResults(data)
                 
                 
-                $("#showWeather").html(widget);
+                $("#showVideo").html(widget);
                 
-                $("#city").val('');
+                $("#search").val('');
             }
             
         });
         
         
     }else{
-        $("#error").html("<div class='alert alert-danger' id='errorCity'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>City field cannot be empty</div>");
+        $("#error").html("<div class='alert alert-danger' id='errorCity'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Search video field cannot be empty</div>");
     }
     
     
@@ -48,15 +49,4 @@ function showResults(data){
             "<h3 style='padding-left:40px;'><strong>Wind Speed</strong>: "+data.wind.speed+"m/s</h3>"+
             "<h3 style='padding-left:40px; padding-bottom:30px;'><strong>Wind Direction</strong>: "+data.wind.deg+"&deg;</h3>";
 }
-
-
-
-
-
-
-
-
-
-
-
 
